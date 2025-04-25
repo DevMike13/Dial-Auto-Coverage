@@ -76,7 +76,7 @@ const Step4 = () => {
 
     return (
         <div className='flex flex-col gap-5'>
-            <h1 className="font-bold md:text-4xl text-2xl text-center">What Day Were You Born?</h1>
+            <h1 className="font-bold md:text-4xl text-2xl text-center">Birth Date mm/dd/yyyy</h1>
             <input
                 className="w-full h-[65px] bg-[#FFFFFF] text-center rounded-md text-xl"
                 placeholder="MM/DD/YYYY"

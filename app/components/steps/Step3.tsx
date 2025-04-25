@@ -18,7 +18,7 @@ const Step3 = () => {
 
   return (
     <div className='flex flex-col gap-5'>
-      <h1 className='font-bold md:text-4xl text-2xl text-center'>What Is Your Full Name?</h1>
+      <h1 className='font-bold md:text-4xl text-2xl text-center'>First Name and Last Name</h1>
       <p className='text-center'>This is the name that will be on your application</p>
       <input
         className="w-full h-[65px] bg-[#FFFFFF] text-center rounded-md text-xl"
