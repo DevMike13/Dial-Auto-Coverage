@@ -25,7 +25,13 @@ const Step2 = () => {
         className="w-full h-[65px] bg-[#FFFFFF] text-center rounded-md text-xl"
         placeholder="Zip Code"
         value={formData.zip}
-        onChange={(e) => updateField('zip', e.target.value)}
+        onChange={(e) => {
+          const numericZip = e.target.value.replace(/\D/g, '').slice(0, 5);
+          updateField('zip', numericZip);
+        }}
+        inputMode="numeric"
+        pattern="\d{5}"
+        maxLength={5}
       />
       {error && <p className="text-red-500 text-sm mb-2 text-center">{error}</p>}
       <div className="flex justify-between gap-2 mt-5">
