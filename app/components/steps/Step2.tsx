@@ -2,6 +2,7 @@
 
 import { useFormStore } from '@/stores/formStore';
 import { useState } from 'react';
+import CallCard from '../card/CallCard';
 
 const Step2 = () => {
   const { formData, updateField, nextStep, prevStep } = useFormStore();
@@ -18,7 +19,7 @@ const Step2 = () => {
 
   return (
     <div className='flex flex-col gap-5'>
-      <h1 className='font-bold md:text-4xl text-2xl text-center'>What Zip Code Do You Live In?</h1>
+      <h1 className='font-bold md:text-4xl text-2xl text-center'>What is your ZIP code?</h1>
       <p className='text-center'>Your zip code will help us see what benefits could be available in your area.</p>
       <input
         className="w-full h-[65px] bg-[#FFFFFF] text-center rounded-md text-xl"
@@ -35,6 +36,7 @@ const Step2 = () => {
           Continue
         </button>
       </div>
+      <CallCard />
     </div>
   )
 }

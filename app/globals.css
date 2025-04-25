@@ -30,6 +30,76 @@
   }
 }
 
+@layer utilities {
+  .delay-0{
+    animation-delay: 0ms;
+  }
+  .delay-2000 {
+    animation-delay: 2000ms;
+  }
+  .delay-3000 {
+    animation-delay: 3000ms;
+  }
+
+  .bg-stripes {
+    background-image: linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.15) 25%,
+      transparent 25%,
+      transparent 50%,
+      rgba(255, 255, 255, 0.15) 50%,
+      rgba(255, 255, 255, 0.15) 75%,
+      transparent 75%,
+      transparent
+    );
+    background-size: 1rem 1rem;
+  }
+
+  .animate-stripes {
+    animation: stripes 1s linear infinite;
+  }
+
+  @keyframes stripes {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: 1rem 0;
+    }
+  }
+
+  /* Fade In Up Animation */
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fadeInUp {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+
+  /* Arrow bounce (optional improvement if you want bounce on arrows) */
+  @keyframes arrowBounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(4px);
+    }
+  }
+
+  .animate-arrowBounce {
+    animation: arrowBounce 1s infinite;
+  }
+}
+
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -38,7 +108,7 @@
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  /* background: var(--background);
+  color: var(--foreground); */
   font-family: Arial, Helvetica, sans-serif;
 }
