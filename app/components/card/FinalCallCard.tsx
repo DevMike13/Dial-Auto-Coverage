@@ -8,7 +8,7 @@ const FinalCallCard = () => {
                 <img src="/thank-btn.jpg" alt="Logo" width={70} height={70} className='hidden rounded-xl sm:block animate-tada' />
                 <img src="/thank-btn.jpg" alt="Logo" width={42} height={42} className='block rounded-xl sm:hidden animate-tada' />
                 <div className='flex flex-col items-start'>
-                    <p className='md:text-2xl text-lg font-bold text-red-500'>CALL TOLL-FREE</p>
+                    <p className='md:text-2xl text-lg font-bold text-white'>CALL TOLL-FREE</p>
                     <p className='md:text-2xl text-lg font-bold text-red-500'>(833) 332 1499 TTY 711</p>
                 </div>
             </div>
