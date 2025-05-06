@@ -16,7 +16,7 @@ const Step1 = () => {
   return (
     <div className='flex flex-col gap-5'>
       <h1 className='font-bold md:text-4xl text-2xl text-center'>Are you currently insured?</h1>
-      <p className='text-center'>Part A covers hospital care. Part B covers medical care.</p>
+      {/* <p className='text-center'>Part A covers hospital care. Part B covers medical care.</p> */}
       <div className="flex flex-col gap-2">
         {options.map((option) => (
           <button
@@ -32,7 +32,7 @@ const Step1 = () => {
           </button>
         ))}
       </div>
-      <CallCard />
+      {/* <CallCard /> */}
     </div>
   )
 }

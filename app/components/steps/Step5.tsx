@@ -50,7 +50,7 @@ const Step5 = () => {
       { isSubmitted ? (
           <div className="text-center">
             <p className="text-lg"><b>Great News!</b> One of our team members will be calling you shortly to arrange your Medicare plan review. If you wish to speak to a Licensed Insurance Agent immediately, please tap the button below to be connected.</p>
-            <FinalCallCard />
+            {/* <FinalCallCard /> */}
           </div>
           ) : 
           (

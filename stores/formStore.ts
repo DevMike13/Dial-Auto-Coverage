@@ -4,9 +4,11 @@ import { persist } from '@/node_modules/zustand/middleware';
 type FormData = {
     medicareEnrollment: string;
     zip: string;
-    firstName: string,
-    lastName: string,
+    state: string;
+    firstName: string;
+    lastName: string;
     birthDate: string;
+    phone: string;
   };
   
   type FormStore = {
@@ -27,9 +29,11 @@ type FormData = {
         formData: {
           medicareEnrollment: '',
           zip: '',
+          state: '',
           firstName: '',
           lastName: '',
           birthDate: '',
+          phone: ''
         },
         nextStep: () => set((state) => ({ step: state.step + 1 })),
         prevStep: () => set((state) => ({ step: state.step - 1 })),
@@ -43,9 +47,11 @@ type FormData = {
             formData: {
               medicareEnrollment: '',
               zip: '',
+              state: '',
               firstName: '',
               lastName: '',
               birthDate: '',
+              phone: ''
             },
           }),
           hasHydrated: false,

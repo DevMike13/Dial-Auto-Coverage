@@ -11,10 +11,17 @@ const page = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [progress, setProgress] = useState(0);
+    const [inboundNumber, setInboundNumber] = useState<string | null>(null);
 
     const [showStep1, setShowStep1] = useState(false);
     const [showStep2, setShowStep2] = useState(false);
     const [showStep3, setShowStep3] = useState(false);
+
+    useEffect(() => {
+        const storedNumber = localStorage.getItem('inbound_number');
+        setInboundNumber(storedNumber);
+        console.log(storedNumber);
+    }, []);
 
     useEffect(() => {
         if (isLoading) {
@@ -48,16 +55,24 @@ const page = () => {
     }, [isLoading]);
 
     return (
-        <main className="w-full h-auto bg-[#e8f1ff]">
+        <main className="w-full h-auto bg-[#e8f1ff] overflow-hidden">
             <Header />
             <div className='w-full flex justify-center mt-10 mb-20'>
                 <div className='md:max-w-[500px] max-w-[330px] w-full'>
                     <div className='flex flex-col gap-5'>
                         { isSubmitted ? (
-                            <div className="text-center">
-                                <p className="text-lg"><b>Great News!</b> One of our team members will be calling you shortly to arrange your Medicare plan review. If you wish to speak to a Licensed Insurance Agent immediately, please tap the button below to be connected.</p>
-                                <FinalCallCard />
-                            </div>
+                            <>
+                                { inboundNumber ? (
+                                        <>
+                                            <p className="text-lg"><b>Great News!</b> You're one step closer to reviewing your Auto Insurance plan options. To speak with a Licensed Insurance Agent right away, call us now by tapping the button below. Our team is standing by to assist you!</p>
+                                            <FinalCallCard phoneNumber={inboundNumber} />
+                                        </>
+                                    ) : (
+                                        <p>Thank you for your interest! Unfortunately, we don’t currently have an offer that matches your needs, but we appreciate your time and may reach out in the future if opportunities become available. Have a great day!</p>
+                                    )
+
+                                }
+                            </>
                             ) : 
                             (
                                 <>

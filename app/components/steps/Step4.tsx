@@ -6,11 +6,9 @@ import { useRouter } from '@/node_modules/next/navigation';
 import FinalCallCard from '../card/FinalCallCard';
 
 const Step4 = () => {
-    const { formData, updateField, nextStep, prevStep, resetForm } = useFormStore();
+    const { formData, updateField, nextStep, prevStep } = useFormStore();
     const [error, setError] = useState('');
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const router = useRouter();
-    
+
     const formatDate = (value: string) => {
         const numeric = value.replace(/\D/g, '');
         const mm = numeric.slice(0, 2);
@@ -32,7 +30,7 @@ const Step4 = () => {
         return regex.test(date);
     };
 
-    const handleSubmit = async () => {
+    const handleNext = () => {
         if (!formData.birthDate.trim()) {
             setError('Birthdate is required');
             return;
@@ -43,35 +41,7 @@ const Step4 = () => {
             return;
         }
         setError('');
-
-        setIsSubmitting(true);
-
-        // try {
-        //     const response = await fetch('/api/submit', {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify(formData),
-        //     });
-
-        //     if (!response.ok) {
-        //         throw new Error('Failed to submit data');
-        //     }
-
-        //     // Proceed to the next step
-        //     nextStep();
-        // } catch (err: any) {
-        //     console.error(err);
-        //     setError('Something went wrong. Please try again.');
-        // } finally {
-        //     setIsSubmitting(false);
-        // }
-        // nextStep();
-        router.push('/thank-you');
-        setTimeout(() => {
-            resetForm();
-        }, 2000);
+        nextStep();
     };
 
     return (
@@ -93,10 +63,10 @@ const Step4 = () => {
                     Back
                 </button>
                 <button
-                    onClick={handleSubmit}
+                    onClick={handleNext}
                     className="w-full md:h-[65px] h-[55px] rounded-md cursor-pointer bg-[#1c2753] md:text-2xl text-xl font-semibold text-white"
                 >
-                    Submit
+                    Continue
                 </button>
             </div>
         </div>

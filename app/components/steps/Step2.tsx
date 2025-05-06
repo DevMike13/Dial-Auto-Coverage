@@ -42,7 +42,7 @@ const Step2 = () => {
           Continue
         </button>
       </div>
-      <CallCard />
+      {/* <CallCard /> */}
     </div>
   )
 }
