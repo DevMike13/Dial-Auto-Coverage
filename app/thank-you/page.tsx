@@ -68,7 +68,7 @@ const page = () => {
                                             <FinalCallCard phoneNumber={inboundNumber} />
                                         </>
                                     ) : (
-                                        <p>Thank you for your interest! Unfortunately, we don’t currently have an offer that matches your needs, but we appreciate your time and may reach out in the future if opportunities become available. Have a great day!</p>
+                                        <p className="text-lg font-semibold">Thank you for your interest! Unfortunately, we don’t currently have an offer that matches your needs, but we appreciate your time and may reach out in the future if opportunities become available. Have a great day!</p>
                                     )
 
                                 }

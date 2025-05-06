@@ -16,7 +16,7 @@ const FinalCallCard = ({ phoneNumber }: FinalCallCardProps) => {
                 <img src="/thank-btn.jpg" alt="Logo" width={42} height={42} className='block rounded-xl sm:hidden animate-tada' />
                 <div className='flex flex-col items-start'>
                     <p className='md:text-2xl text-lg font-bold text-white'>CALL TOLL-FREE</p>
-                    <p className='md:text-2xl text-lg font-bold text-red-500'>{phoneNumber} TTY 711</p>
+                    <p className='md:text-2xl text-lg font-bold text-red-500'>{phoneNumber}</p>
                 </div>
             </div>
         </a>

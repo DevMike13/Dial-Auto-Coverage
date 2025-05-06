@@ -16,8 +16,9 @@ const Header = () => {
         </a>
         <div>
           <p className='md:text-sm text-xs'>Speak with a Licensed Insurance Agent</p>
-          <p className='md:text-2xl text-sm font-bold text-red-500'><a href="tel:+18333321499">(833) 332 1499 TTY 711</a></p>
+          {/* <p className='md:text-2xl text-sm font-bold text-red-500'><a href="tel:+18333321499">(833) 332 1499 TTY 711</a></p> */}
           <p className='md:text-sm text-xs'>Available: Mon - Sun  8AM - 6PM CST</p>
+          <p className='md:text-sm text-xs'>FIll up the form to qualify</p>
         </div>
       </div>
     </div>
