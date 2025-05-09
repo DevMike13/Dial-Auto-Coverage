@@ -5,7 +5,7 @@ type FinalCallCardProps = {
 };
 
 const FinalCallCard = ({ phoneNumber }: FinalCallCardProps) => {
-    const formattedNumber = phoneNumber.replace(/[^0-9]/g, '');
+    const formattedNumber = phoneNumber.replace(/(?!^\+)[^\d]/g, '');
     const telHref = `tel:${formattedNumber}`;
 
   return (
