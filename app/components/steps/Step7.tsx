@@ -24,21 +24,44 @@ const Step7 = () => {
     setError('');
     setIsSubmitting(true);
 
-    const payload = {
-      rcm_campaign_id: campaignId || '5148',
-      rcm_aff_id: affId || '1',
-      rcm_aff_sub: s1 || 'mysub1',
-      first_name: formData.firstName,
-      last_name: formData.lastName,
-      dob: formData.birthDate,
-      zip_code: formData.zip,
-      state: formData.state,
-      phone: phone,
-      xxTrustedFormCertUrl: 'https://example.com'
-    };
+    let endpoint = '';
+    let payload: Record<string, any> = {};
+
+   
+    if (formData.medicareEnrollment === 'Yes') {
+      endpoint = 'https://rtb.retreaver.com/rtbs.json';
+      payload = {
+        key: '057afaea-398c-4b16-a072-d6378092801e',
+        publisher_id: '3178',
+        caller_number: phone,
+        call_key: '057afaea-398c-4b16-a072-d6378092801e',
+        caller_zip: formData.zip,
+        caller_state: formData.state,
+        firstname: formData.firstName,
+        lastname: formData.lastName,
+        dob: formData.birthDate,
+      };
+    } else {
+      endpoint = 'https://rtb.retreaver.com/rtbs.json';
+      payload = {
+        key: '717a2b82-54aa-4b1e-b472-c2426a155c9f',
+        publisher_id: '3178',
+        caller_number: phone,
+        call_key: '057afaea-398c-4b16-a072-d6378092801e',
+        caller_zip: formData.zip,
+        caller_state: formData.state,
+        firstname: formData.firstName,
+        lastname: formData.lastName,
+        dob: formData.birthDate,
+      };
+    }
 
     try {
-      const response = await fetch('https://api-leaddepot.offerwings.com/api/v1/lead/receive/', {
+      console.log('Submitting to:', endpoint);
+      console.log('Payload:', payload);
+      console.log('Ans:', formData.medicareEnrollment)
+
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
