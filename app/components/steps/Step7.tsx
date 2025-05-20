@@ -14,6 +14,7 @@ const Step7 = () => {
   const campaignId = searchParams.get('offer_id');
   const affId = searchParams.get('affiliate_id');
   const s1 = searchParams.get('sub1');
+  const trans_id = searchParams.get('transaction_id');
 
   const handleSubmit = async () => {
     const phone = formData.phone?.trim() || '';
@@ -38,7 +39,8 @@ const Step7 = () => {
         state: formData.state,
         phone: phone,
         xxTrustedFormCertUrl: 'https://example.com',
-        api_key: '057afaea-398c-4b16-a072-d6378092801e'
+        api_key: '057afaea-398c-4b16-a072-d6378092801e',
+        transaction_id: trans_id || ''
       };
     } else {
       payload = {
@@ -52,7 +54,8 @@ const Step7 = () => {
         state: formData.state,
         phone: phone,
         xxTrustedFormCertUrl: 'https://example.com',
-        api_key: '717a2b82-54aa-4b1e-b472-c2426a155c9f'
+        api_key: '717a2b82-54aa-4b1e-b472-c2426a155c9f',
+        transaction_id: trans_id || ''
       };
     }
 
@@ -80,7 +83,21 @@ const Step7 = () => {
         localStorage.setItem('inbound_number', inboundNumber);
       }
 
-      router.push('/thank-you');
+      const query = new URLSearchParams({
+        offer_id: campaignId || '',
+        affiliate_id: affId || '',
+        sub1: s1 || '',
+        transaction_id: trans_id || '',
+        first_name: formData.firstName || '',
+        last_name: formData.lastName || '',
+        dob: formData.birthDate || '',
+        zip_code: formData.zip || '',
+        state: formData.state || '',
+        phone: phone || '',
+        medicareEnrollment: formData.medicareEnrollment || ''
+      }).toString();
+
+      router.push(`/thank-you?${query}`);
 
       setTimeout(() => {
         resetForm();
@@ -121,9 +138,38 @@ const Step7 = () => {
         </button>
         <button
           onClick={handleSubmit}
-          className="w-full md:h-[65px] h-[55px] rounded-md cursor-pointer bg-[#1c2753] md:text-2xl text-xl font-semibold text-white"
+          disabled={isSubmitting}
+          className={`w-full md:h-[65px] h-[55px] rounded-md cursor-pointer md:text-2xl text-xl font-semibold text-white ${
+            isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-[#1c2753]'
+          }`}
         >
-          Submit
+         {isSubmitting ? (
+            <div className="flex items-center justify-center gap-2">
+              <svg
+                className="animate-spin h-5 w-5 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8v8H4z"
+                ></path>
+              </svg>
+              Submitting...
+            </div>
+          ) : (
+            'Submit'
+          )}
         </button>
       </div>
     </div>

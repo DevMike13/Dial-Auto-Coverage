@@ -1,17 +1,27 @@
 'use client';
 
 import { useFormStore } from 'stores/formStore';
-import { useState, useEffect } from 'react';
+import { Suspense, useState, useEffect } from 'react';
 import FinalCallCard from '../components/card/FinalCallCard';
 import Header from '../components/header/Header';
 import Footer from '../components/footer/Footer';
+import { useSearchParams } from 'next/navigation';
 
-const page = () => {
+declare global {
+    interface Window {
+      Retreaver: any;
+    }
+}
+
+const ThankYouPage = () => {
+    const searchParams = useSearchParams();
     const { resetForm } = useFormStore();
     const [isLoading, setIsLoading] = useState(true);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [progress, setProgress] = useState(0);
     const [inboundNumber, setInboundNumber] = useState<string | null>(null);
+    const medicareEnrollment = searchParams.get('medicareEnrollment');
+    const [generatedNumber, setGeneratedNumber] = useState<string | null>(null);
 
     const [showStep1, setShowStep1] = useState(false);
     const [showStep2, setShowStep2] = useState(false);
@@ -20,8 +30,92 @@ const page = () => {
     useEffect(() => {
         const storedNumber = localStorage.getItem('inbound_number');
         setInboundNumber(storedNumber);
-        console.log(storedNumber);
     }, []);
+
+
+    useEffect(() => {
+        if (!isLoading && isSubmitted) {
+        const script = document.createElement('script');
+        script.type = 'text/javascript';
+
+        if (medicareEnrollment == 'Yes') {
+            script.innerHTML = `
+            (function() {
+                var a = document.createElement("script");
+                a.type = "text/javascript";
+                a.async = !0;
+                a.defer = !0;
+                a.src = "https:" + "//dist.routingapi.com/jsapi/v1/retreaver.min.js";
+                a.onload = a.onreadystatechange = function() {
+                Retreaver.configure({
+                    host: "api.routingapi.com",
+                    prefix: "https"
+                });
+                (new Retreaver.Campaign({
+                    campaign_key: "d7bf2f46132f1fa53aef5dbca2eb8adc"
+                })).auto_replace_numbers()
+                };
+                (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(a)
+            })();
+            `;
+        } else {
+            script.innerHTML = `
+            (function() {
+                var a = document.createElement("script");
+                a.type = "text/javascript";
+                a.async = !0;
+                a.defer = !0;
+                a.src = "https:" + "//dist.routingapi.com/jsapi/v1/retreaver.min.js";
+                a.onload = a.onreadystatechange = function() {
+                  Retreaver.configure({
+                    host: "api.routingapi.com",
+                    prefix: "https"
+                  });
+                  (new Retreaver.Campaign({
+                    campaign_key: "a6bce58d9003656fb6d493ed32a5a0cc"
+                  })).auto_replace_numbers()
+                };
+                (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(a)
+              })();
+            `;
+        }
+        document.head.appendChild(script);
+    }
+    }, [medicareEnrollment, isLoading, isSubmitted]);
+
+    useEffect(() => {
+        if (!isLoading && isSubmitted) {
+            const inlineScript = document.createElement('script');
+            inlineScript.type = 'text/javascript';
+            if (medicareEnrollment == 'Yes') {
+                inlineScript.innerHTML = `
+                    setTimeout(function() {
+                    let phoneLink = document.getElementById("phoneLink1");
+                    
+                    if (phoneLink) {
+                        phoneLink.href = "tel:+1" + phoneLink.innerText;
+                    }
+                    }, 1000);
+                `;
+                
+            } else {
+                inlineScript.innerHTML = `
+                    setTimeout(function() {  
+                    let phoneLink = document.getElementById("phoneLink2");
+                    if (phoneLink) {
+                        phoneLink.href = "tel:+1" +  phoneLink.innerText;
+                    }
+                  }, 1000);
+                `;
+            }
+
+            document.body.appendChild(inlineScript); 
+            return () => {
+                document.body.removeChild(inlineScript);
+            };
+        }
+    }, [medicareEnrollment, isLoading, isSubmitted]);
+      
 
     useEffect(() => {
         if (isLoading) {
@@ -65,7 +159,7 @@ const page = () => {
                                 { inboundNumber ? (
                                         <>
                                             <p className="text-lg"><b>Great News!</b> You're one step closer to reviewing your Auto Insurance plan options. To speak with a Licensed Insurance Agent right away, call us now by tapping the button below. Our team is standing by to assist you!</p>
-                                            <FinalCallCard phoneNumber={inboundNumber} />
+                                            <FinalCallCard  />
                                         </>
                                     ) : (
                                         <p className="text-lg font-semibold">Thank you for your interest! Unfortunately, we don’t currently have an offer that matches your needs, but we appreciate your time and may reach out in the future if opportunities become available. Have a great day!</p>
@@ -156,6 +250,14 @@ const page = () => {
             <Footer />
         </main>
     )
+}
+
+const page = () => {
+    return (
+        <Suspense fallback={<div className="py-10 text-center">Loading confirmation...</div>}>
+          <ThankYouPage />
+        </Suspense>
+    );
 }
 
 export default page
