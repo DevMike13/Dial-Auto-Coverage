@@ -8,12 +8,12 @@ const Step3 = () => {
   const [error, setError] = useState('');
 
   const handleNext = () => {
-    if (!formData.firstName?.trim() || !formData.lastName?.trim()) {
-      setError('First and Last Name are required');
-      return;
-    }
-    setError('');
-    nextStep();
+    // if (!formData.firstName?.trim() || !formData.lastName?.trim()) {
+    //   setError('First and Last Name are required');
+    //   return;
+    // }
+    // setError('');
+    // nextStep();
   };
 
   return (
@@ -23,14 +23,14 @@ const Step3 = () => {
       <input
         className="w-full h-[65px] bg-[#FFFFFF] text-center rounded-md text-xl"
         placeholder="First Name"
-        value={formData.firstName}
-        onChange={(e) => updateField('firstName', e.target.value)}
+        // value={formData.firstName}
+        // onChange={(e) => updateField('firstName', e.target.value)}
       />
       <input
         className="w-full h-[65px] bg-[#FFFFFF] text-center rounded-md text-xl"
         placeholder="Last Name"
-        value={formData.lastName}
-        onChange={(e) => updateField('lastName', e.target.value)}
+        // value={formData.lastName}
+        // onChange={(e) => updateField('lastName', e.target.value)}
       />
       {error && <p className="text-red-500 text-sm mb-2 text-center">{error}</p>}
       <div className="flex justify-between gap-2 mt-5">

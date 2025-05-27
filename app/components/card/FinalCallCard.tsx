@@ -35,7 +35,6 @@ const FinalCallCard = () => {
                     {medicareEnrollment === "Yes" && (
                         <a
                             id="phoneLink1"
-                            data-phone
                             href="tel:+000"
                             className="md:text-2xl text-lg font-bold text-red-500"
                         >
@@ -46,7 +45,6 @@ const FinalCallCard = () => {
                     {medicareEnrollment === "No" && (
                         <a
                             id="phoneLink2"
-                            data-phone
                             href="tel:+000"
                             className="md:text-2xl text-lg font-bold text-red-500"
                         >

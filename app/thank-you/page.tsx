@@ -95,7 +95,7 @@ const ThankYouPage = () => {
                     if (phoneLink) {
                         phoneLink.href = "tel:+1" + phoneLink.innerText;
                     }
-                    }, 1000);
+                    }, 2000);
                 `;
                 
             } else {
@@ -105,7 +105,7 @@ const ThankYouPage = () => {
                     if (phoneLink) {
                         phoneLink.href = "tel:+1" +  phoneLink.innerText;
                     }
-                  }, 1000);
+                  }, 2000);
                 `;
             }
 

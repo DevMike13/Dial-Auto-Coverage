@@ -5,9 +5,9 @@ type FormData = {
     medicareEnrollment: string;
     zip: string;
     state: string;
-    firstName: string;
-    lastName: string;
-    birthDate: string;
+    // firstName: string;
+    // lastName: string;
+    // birthDate: string;
     phone: string;
   };
   
@@ -30,9 +30,9 @@ type FormData = {
           medicareEnrollment: '',
           zip: '',
           state: '',
-          firstName: '',
-          lastName: '',
-          birthDate: '',
+          // firstName: '',
+          // lastName: '',
+          // birthDate: '',
           phone: ''
         },
         nextStep: () => set((state) => ({ step: state.step + 1 })),
@@ -48,9 +48,9 @@ type FormData = {
               medicareEnrollment: '',
               zip: '',
               state: '',
-              firstName: '',
-              lastName: '',
-              birthDate: '',
+              // firstName: '',
+              // lastName: '',
+              // birthDate: '',
               phone: ''
             },
           }),

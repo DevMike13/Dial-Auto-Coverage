@@ -25,7 +25,7 @@ const Footer = () => {
             </li>
           </ul>
         </div>
-        <p className='text-center md:text-base text-sm'>© 2025 Dialautocovergae.com. All rights reserved.</p>
+        <p className='text-center md:text-base text-sm'>© 2025 Dialautocoverage.com. All rights reserved.</p>
         <div className='w-full flex flex-col gap-3'>
             <p className='md:text-sm text-xs'>This website is a marketing platform and is not affiliated with any government agency or insurance provider. We connect consumers with licensed insurance agents and carriers through Pay-Per-Call partnerships. Your call may be directed to a third-party partner or licensed agent who can assist with your insurance needs.</p>
             <h6>Consent & TCPA Disclosure</h6>

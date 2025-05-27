@@ -32,9 +32,9 @@ const Step7 = () => {
         rcm_campaign_id: campaignId || '5148',
         rcm_aff_id: affId || '1',
         rcm_aff_sub: s1 || 'mysub1',
-        first_name: formData.firstName,
-        last_name: formData.lastName,
-        dob: formData.birthDate,
+        first_name: '',
+        last_name: '',
+        dob: '',
         zip_code: formData.zip,
         state: formData.state,
         phone: phone,
@@ -47,9 +47,9 @@ const Step7 = () => {
         rcm_campaign_id: campaignId || '5148',
         rcm_aff_id: affId || '1',
         rcm_aff_sub: s1 || 'mysub1',
-        first_name: formData.firstName,
-        last_name: formData.lastName,
-        dob: formData.birthDate,
+        first_name: '',
+        last_name: '',
+        dob: '',
         zip_code: formData.zip,
         state: formData.state,
         phone: phone,
@@ -60,7 +60,7 @@ const Step7 = () => {
     }
 
     try {
-      console.log('Payload:', payload);
+      // console.log('Payload:', payload);
       console.log('Ans:', formData.medicareEnrollment)
 
       const response = await fetch('https://api-leaddepot.offerwings.com/api/v1/lead/receive/', {
@@ -88,9 +88,9 @@ const Step7 = () => {
         affiliate_id: affId || '',
         sub1: s1 || '',
         transaction_id: trans_id || '',
-        first_name: formData.firstName || '',
-        last_name: formData.lastName || '',
-        dob: formData.birthDate || '',
+        // first_name: formData.firstName || '',
+        // last_name: formData.lastName || '',
+        // dob: formData.birthDate || '',
         zip_code: formData.zip || '',
         state: formData.state || '',
         phone: phone || '',

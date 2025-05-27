@@ -8,15 +8,45 @@ const Step2 = () => {
   const { formData, updateField, nextStep, prevStep } = useFormStore();
   const [error, setError] = useState('');
 
+  const fetchZipData = async () => {
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_ZIP_API_URL}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${process.env.NEXT_PUBLIC_ZIP_API_TOKEN}`,
+        },
+        body: JSON.stringify({ zip: formData.zip }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch ZIP data');
+      }
+
+      const result = await response.json();
+
+      if (result.success && result.data) {
+        const state = result.data.state;
+        updateField('state', state);
+        nextStep();
+      } else {
+        alert('Please enter a valid ZIP code.');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Failed to verify ZIP code. Please try again.');
+    }
+  };
+  
   const handleNext = () => {
     if (!formData.zip.trim()) {
       setError('The field is required');
       return;
     }
     setError('');
-    nextStep();
+    fetchZipData();
   };
-
+ 
   return (
     <div className='flex flex-col gap-5'>
       <h1 className='font-bold md:text-4xl text-2xl text-center'>What is your ZIP code?</h1>

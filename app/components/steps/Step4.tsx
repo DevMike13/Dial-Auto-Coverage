@@ -22,7 +22,7 @@ const Step4 = () => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const formatted = formatDate(e.target.value);
-        updateField('birthDate', formatted);
+        // updateField('birthDate', formatted);
     };
 
     const isValidDate = (date: string) => {
@@ -31,17 +31,17 @@ const Step4 = () => {
     };
 
     const handleNext = () => {
-        if (!formData.birthDate.trim()) {
-            setError('Birthdate is required');
-            return;
-        }
+        // if (!formData.birthDate.trim()) {
+        //     setError('Birthdate is required');
+        //     return;
+        // }
 
-        if (!isValidDate(formData.birthDate)) {
-            setError('Please enter a valid date in MM/DD/YYYY format');
-            return;
-        }
-        setError('');
-        nextStep();
+        // if (!isValidDate(formData.birthDate)) {
+        //     setError('Please enter a valid date in MM/DD/YYYY format');
+        //     return;
+        // }
+        // setError('');
+        // nextStep();
     };
 
     return (
@@ -50,7 +50,7 @@ const Step4 = () => {
             <input
                 className="w-full h-[65px] bg-[#FFFFFF] text-center rounded-md text-xl"
                 placeholder="MM/DD/YYYY"
-                value={formData.birthDate}
+                // value={formData.birthDate}
                 onChange={handleChange}
             />
             {error && <p className="text-red-500 text-sm mb-2 text-center">{error}</p>}
