@@ -7,20 +7,26 @@ const Footer = () => {
         <div>
           <ul className='flex flex-col md:flex-row justify-between items-center gap-2'>
             <li>
-              <Link href="/terms-&-conditions" className='underline'>
+              <Link href="/terms-&-conditions" target="_blank" className='underline'>
                 Terms & Conditions
               </Link>
             </li>
             <p className='hidden md:block'>|</p>
             <li>
-              <Link href="/privacy-policy" className='underline'>
+              <Link href="/privacy-policy" target="_blank" className='underline'>
                 Privacy Policy
               </Link>
             </li>
             <p className='hidden md:block'>|</p>
             <li>
-              <Link href="/about" className='underline'>
+              <Link href="/about" target="_blank" className='underline'>
                 About Us
+              </Link>
+            </li>
+            <p className='hidden md:block'>|</p>
+            <li>
+              <Link href="/california-residents" target="_blank" className='underline'>
+                California Residents
               </Link>
             </li>
           </ul>

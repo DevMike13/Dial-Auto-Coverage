@@ -15,6 +15,13 @@ const Step7 = () => {
   const affId = searchParams.get('affiliate_id');
   const s1 = searchParams.get('sub1');
   const trans_id = searchParams.get('transaction_id');
+  const key = searchParams.get('key');
+  const type = searchParams.get('type');
+
+  useEffect(() => {
+    console.log('key:', key);
+    console.log('type:', type);
+  }, [key, type]);
 
   const handleSubmit = async () => {
     const phone = formData.phone?.trim() || '';
@@ -26,8 +33,9 @@ const Step7 = () => {
     setIsSubmitting(true);
 
     let payload: Record<string, any> = {};
-
-    if (formData.medicareEnrollment === 'Yes') {
+    
+    if (formData.medicareEnrollment === 'Yes' && type === 'Insured') {
+      console.log(key);
       payload = {
         rcm_campaign_id: campaignId || '5148',
         rcm_aff_id: affId || '1',
@@ -39,10 +47,11 @@ const Step7 = () => {
         state: formData.state,
         phone: phone,
         xxTrustedFormCertUrl: 'https://example.com',
-        api_key: '057afaea-398c-4b16-a072-d6378092801e',
+        api_key: key,
         transaction_id: trans_id || ''
       };
-    } else {
+    } else if(formData.medicareEnrollment === 'No' && type === 'Uninsured') {
+      console.log(key);
       payload = {
         rcm_campaign_id: campaignId || '5148',
         rcm_aff_id: affId || '1',
@@ -54,33 +63,53 @@ const Step7 = () => {
         state: formData.state,
         phone: phone,
         xxTrustedFormCertUrl: 'https://example.com',
-        api_key: '717a2b82-54aa-4b1e-b472-c2426a155c9f',
+        api_key: key,
         transaction_id: trans_id || ''
       };
     }
 
     try {
-      // console.log('Payload:', payload);
-      console.log('Ans:', formData.medicareEnrollment)
+      
+      if(formData.medicareEnrollment === 'Yes' && type === 'Insured'){
+        const response = await fetch('https://api-leaddepot.offerwings.com/api/v1/lead/receive/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        });
 
-      const response = await fetch('https://api-leaddepot.offerwings.com/api/v1/lead/receive/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
+        if (!response.ok) {
+          throw new Error('Failed to submit data to lead depot');
+        }
 
-      if (!response.ok) {
-        throw new Error('Failed to submit data to lead depot');
-      }
+        const result = await response.json();
+        const parsedResult = JSON.parse(result.result);
+        const inboundNumber = parsedResult.inbound_number;
 
-      const result = await response.json();
-      const parsedResult = JSON.parse(result.result);
-      const inboundNumber = parsedResult.inbound_number;
+        if (inboundNumber) {
+          localStorage.setItem('inbound_number', inboundNumber);
+        }
+      } else if (formData.medicareEnrollment === 'No' && type === 'Uninsured'){
+        const response = await fetch('https://api-leaddepot.offerwings.com/api/v1/lead/receive/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        });
 
-      if (inboundNumber) {
-        localStorage.setItem('inbound_number', inboundNumber);
+        if (!response.ok) {
+          throw new Error('Failed to submit data to lead depot');
+        }
+
+        const result = await response.json();
+        const parsedResult = JSON.parse(result.result);
+        const inboundNumber = parsedResult.inbound_number;
+
+        if (inboundNumber) {
+          localStorage.setItem('inbound_number', inboundNumber);
+        }
       }
 
       const query = new URLSearchParams({
@@ -94,7 +123,9 @@ const Step7 = () => {
         zip_code: formData.zip || '',
         state: formData.state || '',
         phone: phone || '',
-        medicareEnrollment: formData.medicareEnrollment || ''
+        medicareEnrollment: formData.medicareEnrollment || '',
+        key: key || '',
+        type: type || ''
       }).toString();
 
       router.push(`/thank-you?${query}`);

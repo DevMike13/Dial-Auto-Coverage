@@ -99,7 +99,7 @@ const page = () => {
           <h6 className='font-bold text-lg'>Contact Us</h6>
           <p>If you have any questions about this Privacy Policy, please contact us:</p><br />
           <ul className='ml-10'>
-            <li className='text-sm list-disc'>By email:  <a href="mailto:support@revenueclickmedia.com" className='text-blue-500 underline'>support@revenueclickmedia.com</a></li>
+            <li className='text-sm list-disc'>By email:  <a href="mailto:info@dialautocoverage.com" className='text-blue-500 underline'>info@dialautocoverage.com</a></li>
           </ul>
         </div>
     </div>

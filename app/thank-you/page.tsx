@@ -21,6 +21,7 @@ const ThankYouPage = () => {
     const [progress, setProgress] = useState(0);
     const [inboundNumber, setInboundNumber] = useState<string | null>(null);
     const medicareEnrollment = searchParams.get('medicareEnrollment');
+    const type = searchParams.get('type');
     const [generatedNumber, setGeneratedNumber] = useState<string | null>(null);
 
     const [showStep1, setShowStep1] = useState(false);
@@ -38,7 +39,7 @@ const ThankYouPage = () => {
         const script = document.createElement('script');
         script.type = 'text/javascript';
 
-        if (medicareEnrollment == 'Yes') {
+        if (medicareEnrollment == 'Yes' && type == 'Insured') {
             script.innerHTML = `
             (function() {
                 var a = document.createElement("script");
@@ -58,7 +59,7 @@ const ThankYouPage = () => {
                 (document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]).appendChild(a)
             })();
             `;
-        } else {
+        } else if (medicareEnrollment == 'No' && type == 'Uninsured') {
             script.innerHTML = `
             (function() {
                 var a = document.createElement("script");
@@ -81,13 +82,13 @@ const ThankYouPage = () => {
         }
         document.head.appendChild(script);
     }
-    }, [medicareEnrollment, isLoading, isSubmitted]);
+    }, [medicareEnrollment, type, isLoading, isSubmitted]);
 
     useEffect(() => {
         if (!isLoading && isSubmitted) {
             const inlineScript = document.createElement('script');
             inlineScript.type = 'text/javascript';
-            if (medicareEnrollment == 'Yes') {
+            if (medicareEnrollment == 'Yes' && type == 'Insured') {
                 inlineScript.innerHTML = `
                     setTimeout(function() {
                     let phoneLink = document.getElementById("phoneLink1");
@@ -98,7 +99,7 @@ const ThankYouPage = () => {
                     }, 2000);
                 `;
                 
-            } else {
+            } else if (medicareEnrollment == 'No' && type == 'Uninsured') {
                 inlineScript.innerHTML = `
                     setTimeout(function() {  
                     let phoneLink = document.getElementById("phoneLink2");
