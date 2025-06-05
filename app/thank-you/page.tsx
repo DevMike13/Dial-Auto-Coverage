@@ -29,6 +29,34 @@ const ThankYouPage = () => {
     const [showStep3, setShowStep3] = useState(false);
 
     useEffect(() => {
+        const externalScript = document.createElement("script");
+        externalScript.src = "https://www.googletagmanager.com/gtag/js?id=AW-17128153028";
+        externalScript.async = true;
+        document.head.appendChild(externalScript);
+    
+        const initScript = document.createElement("script");
+        initScript.innerHTML = `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'AW-17128153028');
+        `;
+        document.head.appendChild(initScript);
+    
+        const conversionScript = document.createElement("script");
+        conversionScript.innerHTML = `
+          gtag('event', 'conversion', {'send_to': 'AW-17128153028/7QWhCNCSnNAaEMS_q-c_'});
+        `;
+        document.head.appendChild(conversionScript);
+    
+        return () => {
+          document.head.removeChild(externalScript);
+          document.head.removeChild(initScript);
+          document.head.removeChild(conversionScript);
+        };
+      }, []);
+
+    useEffect(() => {
         const storedNumber = localStorage.getItem('inbound_number');
         setInboundNumber(storedNumber);
     }, []);
