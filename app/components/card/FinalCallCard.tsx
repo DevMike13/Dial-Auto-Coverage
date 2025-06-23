@@ -6,17 +6,32 @@ type FinalCallCardProps = {
     phoneNumber: string;
 };
 
+declare global {
+    interface Window {
+        gtag_report_conversion?: (url?: string) => void;
+    }
+}
+
 const FinalCallCard = () => {
     const searchParams = useSearchParams();
     const medicareEnrollment = searchParams.get('medicareEnrollment');
     // const formattedNumber = phoneNumber.replace(/(?!^\+)[^\d]/g, '');
     // const telHref = `tel:${formattedNumber}`;
+    const handleClick = () => {
+        if (typeof window !== "undefined" && typeof window.gtag_report_conversion === "function") {
+            window.gtag_report_conversion();
+        } else {
+            console.warn("gtag_report_conversion is not available");
+        }
+    };
 
   return (
     <div className='max-w-[510px] w-full md:mb-20 md:px-4 px-3 py-3 shadow-md flex flex-col justify-center items-center border-2 border-white gap-5 bg-[#f2f7ff] mt-5'>
         <div 
-            className='w-full'
+            className='w-full hover:cursor-pointer'
             onClick={() => {
+                handleClick();
+
                 const phoneLinkId = medicareEnrollment === "Yes" ? "phoneLink1" : "phoneLink2";
                 const phoneLink = document.getElementById(phoneLinkId);
                 if (phoneLink) {

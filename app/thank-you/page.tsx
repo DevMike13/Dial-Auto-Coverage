@@ -33,6 +33,23 @@ const ThankYouPage = () => {
         externalScript.src = "https://www.googletagmanager.com/gtag/js?id=AW-17128153028";
         externalScript.async = true;
         document.head.appendChild(externalScript);
+
+        const gtagScript = document.createElement("script");
+        gtagScript.innerHTML = `
+        function gtag_report_conversion(url) {
+            var callback = function () {
+              if (typeof(url) != 'undefined') {
+                window.location = url;
+              }
+            };
+            gtag('event', 'conversion', {
+                'send_to': 'AW-17128153028/7QWhCNCSnNAaEMS_q-c_',
+                'event_callback': callback
+            });
+            return false;
+          }
+        `;
+        document.head.appendChild(gtagScript);
     
         const initScript = document.createElement("script");
         initScript.innerHTML = `
